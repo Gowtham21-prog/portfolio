@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600,700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 76px;
+  background-color: #070911;
+}
+
+body {
+  @apply text-white font-body antialiased;
+  background-color: transparent;
+}
+
+::selection {
+  @apply bg-teal text-bg;
+}
+
+/* Hide native cursor only on fine-pointer devices, matching CursorGlow's own check */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  a,
+  button,
+  input,
+  textarea,
+  label,
+  [role="button"] {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.glass {
+  @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #4fe3c1, #8b7cff 60%, #f3a73f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+}
+
+/* ---------- Backdrop: aurora, starfield, fireflies, drifting blobs ---------- */
+
+.night-aurora {
+  background: radial-gradient(
+      ellipse 70% 50% at 20% -10%,
+      rgba(79, 227, 193, 0.22),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 65% 50% at 88% 5%,
+      rgba(139, 124, 255, 0.2),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 70% 55% at 50% 115%,
+      rgba(243, 167, 63, 0.14),
+      transparent 62%
+    );
+  animation: aurora-shift 14s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-shift {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    filter: hue-rotate(18deg) brightness(1.18);
+    transform: translate3d(-2.5%, 1.5%, 0) scale(1.06);
+  }
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: star-twinkle 4s ease-in-out infinite;
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(79, 227, 193, 0.95) 0%,
+    rgba(79, 227, 193, 0.35) 45%,
+    transparent 75%
+  );
+  box-shadow: 0 0 12px 2px rgba(79, 227, 193, 0.55);
+  animation: firefly-drift 9s ease-in-out infinite;
+}
+
+@keyframes firefly-drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  35% {
+    transform: translate(30px, -40px);
+  }
+  50% {
+    opacity: 0.4;
+  }
+  65% {
+    transform: translate(-20px, -15px);
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(15px, 30px);
+    opacity: 0;
+  }
+}
+
+.animate-drift {
+  animation: drift 22s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 25px) scale(0.94);
+  }
+}
+
+.night-debug .night-aurora {
+  outline: 1px dashed rgba(79, 227, 193, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night-aurora,
+  .star,
+  .firefly,
+  .animate-drift {
+    animation: none !important;
+  }
+}
+
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 60% 0%,
+    black 40%,
+    transparent 90%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 60% 0%,
+    black 40%,
+    transparent 90%
+  );
+}
+
+:focus-visible {
+  outline: 2px solid #4fe3c1;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #070911;
+}
+::-webkit-scrollbar-thumb {
+  background: #232b3d;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c7a6b;
+}
