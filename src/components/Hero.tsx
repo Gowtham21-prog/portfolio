@@ -144,11 +144,11 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="text-lg text-white/60"
             >
-              Pre-final year Computer Science student at IFET College of Engineering,
-              with five independently built full-stack systems — from a Redis-backed
-              real-time messaging platform to a Stripe-integrated learning
-              marketplace. React on the front, Spring Boot on the back, and a habit
-              of shipping things that actually work.
+              Pre-final year Computer Science student with five independently
+              built full-stack systems — from a Redis-backed real-time
+              messaging platform to a Stripe-integrated learning marketplace.
+              React on the front, Spring Boot on the back, and a habit of
+              shipping things that actually work.
             </motion.p>
 
             <motion.div

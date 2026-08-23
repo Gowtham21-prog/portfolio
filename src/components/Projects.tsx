@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Github, ArrowUpRight, Clock, Sparkles } from "lucide-react";
+import { Github, ArrowUpRight, Clock, Sparkles, Images, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { PROJECTS, type ProjectItem } from "../data";
 import SectionHead from "./SectionHead";
 import SectionGlow from "./SectionGlow";
@@ -87,7 +87,7 @@ function ProjectRail({
   );
 }
 
-function ProjectDetail({ p }: { p: Project }) {
+function ProjectDetail({ p, onOpenGallery }: { p: Project; onOpenGallery: () => void }) {
   const a = ACCENT[p.accent];
   return (
     <motion.div
@@ -182,7 +182,109 @@ function ProjectDetail({ p }: { p: Project }) {
               <Github size={16} /> Source code
             </a>
           )}
+          {p.screenshots && p.screenshots.length > 0 && (
+            <button
+              onClick={onOpenGallery}
+              data-cursor-label="view"
+              className="flex items-center gap-2 rounded-xl border border-white/15 px-5 py-2.5 font-mono text-sm text-white/70 transition-colors hover:border-white/30 hover:text-white"
+            >
+              <Images size={16} /> Preview interface
+            </button>
+          )}
         </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function ScreenshotLightbox({
+  project,
+  index,
+  onClose,
+  onNext,
+  onPrev,
+}: {
+  project: Project;
+  index: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+}) {
+  const shots = project.screenshots ?? [];
+  const a = ACCENT[project.accent];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm md:p-10"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        data-cursor-label="close"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-colors hover:border-white/30 hover:text-white md:right-8 md:top-8"
+      >
+        <X size={18} />
+      </button>
+
+      <div
+        className="relative flex w-full max-w-4xl flex-col items-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-4 flex items-center gap-2 font-mono text-xs text-white/40">
+          <span className={a.text}>{project.name}</span>
+          <span>·</span>
+          <span>
+            {index + 1} / {shots.length}
+          </span>
+        </div>
+
+        <div className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#0b0d14] shadow-2xl">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={shots[index]}
+              src={shots[index]}
+              alt={`${project.name} screenshot ${index + 1}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="block w-full"
+            />
+          </AnimatePresence>
+        </div>
+
+        {shots.length > 1 && (
+          <div className="mt-5 flex items-center gap-4">
+            <button
+              onClick={onPrev}
+              data-cursor-label="prev"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-colors hover:border-white/30 hover:text-white"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="flex gap-1.5">
+              {shots.map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                    i === index ? a.dot : "bg-white/20"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={onNext}
+              data-cursor-label="next"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-colors hover:border-white/30 hover:text-white"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -191,7 +293,9 @@ function ProjectDetail({ p }: { p: Project }) {
 export default function Projects() {
   const projects = PROJECTS.filter((p): p is Project => p.kind === "project");
   const [active, setActive] = useState(0);
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const current = projects[active];
+  const shots = current.screenshots ?? [];
 
   return (
     <section id="projects" className="snap-section relative px-6 py-32 md:px-10">
@@ -199,19 +303,31 @@ export default function Projects() {
       <div className="mx-auto max-w-6xl">
         <SectionHead
           eyebrow="// projects"
-          title="Selected work"
-          sub="Five things I've designed, built, and shipped — pick one to explore."
+          title="Built and deployed"
+          sub="Five full-stack systems, each with frontend and backend deployed and running live — pick one to explore."
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-[280px_1fr]">
           <ProjectRail projects={projects} active={active} onSelect={setActive} />
           <div className="min-h-[520px]">
             <AnimatePresence mode="wait">
-              <ProjectDetail p={current} />
+              <ProjectDetail p={current} onOpenGallery={() => setGalleryIndex(0)} />
             </AnimatePresence>
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {galleryIndex !== null && shots.length > 0 && (
+          <ScreenshotLightbox
+            project={current}
+            index={galleryIndex}
+            onClose={() => setGalleryIndex(null)}
+            onNext={() => setGalleryIndex((i) => (i === null ? 0 : (i + 1) % shots.length))}
+            onPrev={() => setGalleryIndex((i) => (i === null ? 0 : (i - 1 + shots.length) % shots.length))}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

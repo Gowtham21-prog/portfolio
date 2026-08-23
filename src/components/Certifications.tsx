@@ -95,7 +95,7 @@ export default function Certifications() {
           >
             <div className="glass flex h-full flex-col justify-center gap-2 rounded-2xl p-7 text-center">
               <span className="font-display text-4xl font-bold text-teal">
-                {CERTS.length}+
+                {CERTS.length}
               </span>
               <p className="font-mono text-xs uppercase tracking-wider text-white/40">
                 Certifications &amp; events

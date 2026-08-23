@@ -38,6 +38,7 @@ export type ProjectItem =
       tech: string[];
       github: string | null;
       live: string | null;
+      screenshots?: string[];
       featured?: boolean;
       accent: "teal" | "violet" | "amber";
     };
@@ -58,7 +59,8 @@ export const PROJECTS: ProjectItem[] = [
     ],
     tech: ["React", "Spring Boot", "MySQL", "JWT", "REST API"],
     github: "https://github.com/Gowtham21-prog/traceback-fullstack",
-    live: "https://frontend-gowtham-m.vercel.app",
+    live: "https://trace-back-site.vercel.app",
+    screenshots: ["/screenshots/traceback-1.png", "/screenshots/traceback-2.png", "/screenshots/traceback-3.png"],
   },
   {
     kind: "project",
@@ -75,7 +77,8 @@ export const PROJECTS: ProjectItem[] = [
     ],
     tech: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Redis", "WebSocket"],
     github: "https://github.com/Gowtham21-prog/chatapp",
-    live: "https://chatapp-xi-tan.vercel.app",
+    live: "https://chirp-chat-site.vercel.app",
+    screenshots: ["/screenshots/chirp-1.png", "/screenshots/chirp-2.png", "/screenshots/chirp-3.png"],
   },
   {
     kind: "project",
@@ -91,7 +94,8 @@ export const PROJECTS: ProjectItem[] = [
     ],
     tech: ["React", "Spring Boot", "REST API"],
     github: "https://github.com/Gowtham21-prog/mediflow",
-    live: "https://mediflow-gowtham-m.vercel.app",
+    live: "https://medi-flow-site.vercel.app",
+    screenshots: ["/screenshots/mediflow-1.png", "/screenshots/mediflow-2.png", "/screenshots/mediflow-3.png"],
   },
   {
     kind: "project",
@@ -107,7 +111,8 @@ export const PROJECTS: ProjectItem[] = [
     ],
     tech: ["React", "Spring Boot", "MySQL", "REST API"],
     github: "https://github.com/Gowtham21-prog/ecommerce-fullstack",
-    live: "https://ecommerce-fullstack-orpin.vercel.app",
+    live: "https://picksy-shop.vercel.app",
+    screenshots: ["/screenshots/picksy-1.png", "/screenshots/picksy-2.png", "/screenshots/picksy-3.png"],
   },
   {
     kind: "project",
@@ -123,7 +128,8 @@ export const PROJECTS: ProjectItem[] = [
     ],
     tech: ["React", "Spring Boot", "MySQL", "Stripe", "JWT"],
     github: "https://github.com/Gowtham21-prog/elearning-platform",
-    live: null,
+    live: "https://skill-forge-elearn.vercel.app",
+    screenshots: ["/screenshots/skillforge-1.png", "/screenshots/skillforge-2.png", "/screenshots/skillforge-3.png"],
   },
 ];
 
@@ -194,8 +200,8 @@ export const CONTACT = {
   githubLabel: "github.com/gowtham21-prog",
   linkedin: "https://www.linkedin.com/in/gowtham-m-a22416306/",
   linkedinLabel: "linkedin.com/in/gowtham-m",
-  portfolio: "https://gowthamportfolio-ten.vercel.app/",
-  portfolioLabel: "gowthamportfolio-ten.vercel.app",
+  portfolio: "https://gowthamm-portfolio.vercel.app/",
+  portfolioLabel: "gowthamm-portfolio.vercel.app",
   // Drop a resume.pdf into /public and this link will work automatically.
   resume: "/resume.pdf",
   location: "Tamil Nadu, India",
