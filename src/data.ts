@@ -113,7 +113,7 @@ export const PROJECTS: ProjectItem[] = [
     kind: "project",
     accent: "violet",
     name: "SkillForge",
-    tagline: "E-learning marketplace",
+    tagline: "Course marketplace with webhook-driven enrollment",
     file: "skillforge/",
     desc: "A course marketplace where instructors publish courses and students enroll, pay, and track progress — with a real payments flow behind it, not a mock one.",
     points: [
@@ -194,6 +194,8 @@ export const CONTACT = {
   githubLabel: "github.com/gowtham21-prog",
   linkedin: "https://www.linkedin.com/in/gowtham-m-a22416306/",
   linkedinLabel: "linkedin.com/in/gowtham-m",
+  portfolio: "https://gowthamportfolio-ten.vercel.app/",
+  portfolioLabel: "gowthamportfolio-ten.vercel.app",
   // Drop a resume.pdf into /public and this link will work automatically.
   resume: "/resume.pdf",
   location: "Tamil Nadu, India",
